@@ -1,0 +1,13 @@
+.container-main-layout{
+    height: 100%;
+
+    .container-header{
+        display: flex;
+        align-items: center;
+        justify-content: flex-end;
+
+        > button{
+            color: white;
+        }
+    }
+}

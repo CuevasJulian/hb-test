@@ -1,0 +1,16 @@
+.container-sidenav{
+    height: 100%;
+    .top-nav{
+        padding: 0px 5px 0px 5px;
+        box-sizing: border-box;
+        justify-content: center;
+        display: flex;
+        p{
+            color: white;
+            margin: 0px;
+        }
+    }
+    .menu-nav{
+        height: 100%;
+    }
+}

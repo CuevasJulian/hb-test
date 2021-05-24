@@ -1,0 +1,21 @@
+.container-signup{
+    flex-direction: row;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 100%;
+    height: 100%;
+    .title{
+        margin-bottom: 0px;
+    }
+    .description{
+        color: gray;
+        font-size: 12px;
+        margin-bottom: 30px;
+    }
+
+    .form-basics{
+        max-width: 300px;
+
+    }
+}

@@ -1,0 +1,34 @@
+.container-favs{
+    width: 100%;
+    height: 100%;
+    padding: 10px;
+
+    > div {
+        height: 100%;
+    }
+
+    .container-list{
+        height: 100%;
+        .ant-card-body{
+            height: 100%;
+        }
+        .filters-repositories{
+            height: 70px;
+            .list-type{
+                width: 200px;
+                margin-right: 10px;
+            }
+        }
+
+        .list-repositories{
+            height: calc(100% - 70px);
+            overflow-y: auto;
+
+            .ant-empty{
+                width: 100%;
+            }
+        }
+        
+        
+    }
+}
