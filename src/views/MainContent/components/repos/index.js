@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react';
-import { Card,Row,Col,Select, Spin, Radio } from 'antd';
+import { Card,Row,Col,Select, Spin, Radio,Input } from 'antd';
 import { QueryUser } from '@services';
 import { UIRepository } from '@components';
 import './style.scss';
@@ -13,6 +13,7 @@ const Repositories = () => {
     const [ repositories, setRepositories ] = useState({
         data:[],
         loading:false,
+        search:'',
         list_type:'list',
         repo_url:'public',
     });
@@ -24,6 +25,8 @@ const Repositories = () => {
             loading:true,
         })
         get_public_repos().then((rslt) => {
+            console.log(rslt)
+            if(rslt.message) return ;
             setRepositories({
                 ...repositories,
                 loading:false,
@@ -75,6 +78,8 @@ const Repositories = () => {
                                 <Option value={'grid'}>Grid</Option>
                             </Select>
 
+                            <Input className={'input-search'} value={repositories.search} onChange={(e) => setRepositories({...repositories,search:e.target.value})}  placeholder={'Search repository'}/>
+
                             <Radio.Group 
                             options={[
                                 {
@@ -91,15 +96,20 @@ const Repositories = () => {
                             onChange={(e) =>  setRepositories({...repositories,repo_url:e.target.value})}/>
                         </Col>
                     </Row>
-                    <Row gutter={[10,10]} className={'list-repositories'}>
+                    <Row  className={'list-repositories'}>
                         <Spin className={'spin-loading'} spinning={repositories.loading} />
-                        {
-                            repositories.data.map( (item,i) => (
-                                <Col key={i} span={repositories.list_type == 'grid' ? 8 : 24}>
-                                    <UIRepository  name={item.name} owner_name={item.owner.login} url_image={item.owner.avatar_url} />
-                                </Col>
-                            ))
-                        }
+                        <Col span={24}>
+                            <Row className={'repo-grid'} gutter={[10,10]}>
+                                {
+                                    repositories.data.filter((e) => `${e.name}`.includes(repositories.search) ).map( (item,i) => (
+                                        <Col key={i} span={repositories.list_type == 'grid' ? 8 : 24}>
+                                            <UIRepository html_url={item.html_url}  name={item.name} owner_name={item.owner.login} url_image={item.owner.avatar_url} />
+                                        </Col>
+                                    ))
+                                }
+                            </Row>
+                        </Col>
+                        
                     </Row>
                 </Card> 
             </Col>

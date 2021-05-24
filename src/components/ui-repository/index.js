@@ -1,5 +1,6 @@
 import React,{ useContext, useEffect, useState } from 'react';
 import { Row,Col,Card,Avatar,Button } from 'antd';
+import { useLocation } from 'react-router-dom';
 import { ContextApp } from '@context';
 import {
     HeartOutlined,
@@ -7,7 +8,8 @@ import {
 } from '@ant-design/icons';
 import './style.scss';
 
-const UIRepository = ({url_image,name,owner_name}) => {
+const UIRepository = ({url_image,name,owner_name,html_url}) => {
+    const location = useLocation();
     const contextApp = useContext(ContextApp);
     const { dataApp,setDataApp,addRepoFav } = contextApp;
 
@@ -16,14 +18,15 @@ const UIRepository = ({url_image,name,owner_name}) => {
             id:'',
             url_image:url_image,
             name:name,
-            owner_name:owner_name
+            owner_name:owner_name,
+            html_url:html_url,
         },
         isFav:false,
     });
 
     const setInitFav = () => {
         const dataArray = dataApp.repoFav;
-        if(dataArray.filter((item)=> item.name == data.repo.name).length != 0){
+        if(dataArray.filter((item)=> item.name == data.repo.name)[0]){
             setData({...data,isFav:true})
         } 
     }
@@ -32,6 +35,10 @@ const UIRepository = ({url_image,name,owner_name}) => {
     useEffect( () => {
         setInitFav();
     },[]);
+
+    useEffect( () => {
+        setInitFav();
+    },[dataApp.repoFav]);
 
     const handleFav = () => {
         const favTemp = !data.isFav;
@@ -42,7 +49,7 @@ const UIRepository = ({url_image,name,owner_name}) => {
     return(
         <Card className={'container-repo'}>
             <Avatar src={url_image}/>
-            <h2>Repo name: <strong>{name}</strong></h2>
+            <h2>Repo name: <a href={html_url}><strong>{name}</strong></a></h2>
             <p>owner: <strong>{owner_name}</strong></p>
             <Button type={'default'} onClick={handleFav} icon={!data.isFav ? <HeartOutlined /> : <HeartFilled />}/>
         </Card>

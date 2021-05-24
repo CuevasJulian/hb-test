@@ -24,6 +24,12 @@
             height: calc(100% - 70px);
             overflow-y: auto;
 
+            .repo-grid{
+                margin-left: 0px !important;
+                margin-right: 0px !important;
+            }
+
+
             .ant-empty{
                 width: 100%;
             }

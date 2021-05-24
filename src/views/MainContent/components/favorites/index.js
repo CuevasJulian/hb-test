@@ -25,14 +25,21 @@ const Favorites = () => {
                             </Select>
                         </Col>
                     </Row>
-                    <Row gutter={[10,10]} className={'list-repositories'}>
+                    <Row  className={'list-repositories'}>
                         {
                             dataApp.repoFav.length == 0 ? <Empty /> :
-                            dataApp.repoFav.map( (item,i) => (
-                                <Col key={i} span={repositories.list_type == 'grid' ? 8 : 24}>
-                                    <UIRepository  name={item.name} owner_name={item.owner_name} url_image={item.url_image} />
-                                </Col>
-                            ))
+                            <Col span={24}>
+                                <Row className={'repo-grid'} gutter={[10,10]}>
+                                    {
+                                        dataApp.repoFav.map( (item,i) => (
+                                            <Col key={i} span={repositories.list_type == 'grid' ? 8 : 24}>
+                                                <UIRepository html_url={item.html_url} name={item.name} owner_name={item.owner_name} url_image={item.url_image} />
+                                            </Col>
+                                        ))
+                                    }
+                                </Row>
+                            </Col>
+                            
                         }
                     </Row>
                 </Card> 
